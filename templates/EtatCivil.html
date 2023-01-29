@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins:wght@600&display=swap");
-      p{
-        font-family: "Poppins", sans-serif;
-      }
       body {
         background-color: #eeeeee;
         font-family: "Poppins", sans-serif;
@@ -23,8 +20,8 @@
         font-family: "Inter", sans-serif;
         font-size: 30px;
         color: #aaaaaa;
-        margin-left: 600px;
-        margin-top: 81px;
+        margin-left: 570px;
+        margin-top: 55px;
       }
 
       header {
@@ -44,7 +41,7 @@
       }
       header nav {
         display: flex;
-        gap: 760px;
+        gap: 605px;
         margin-left: 51px;
       }
 
@@ -78,8 +75,9 @@
         margin-top: 50px;
       }
       .entry2 img {
-        width: 460px;
-        height: 460px;
+        width: 250px;
+        height: 250px;
+        margin-left: 418px;
       }
       ul {
         list-style: none;
@@ -167,8 +165,8 @@
       }
 
       .EtatCivil {
-        margin-top: 122px;
-        margin-bottom: 143px;
+        margin-top: 66px;
+        margin-bottom: 17px;
         margin-left: 156px;
       }
 
@@ -178,7 +176,24 @@
         width: 350px;
         height: 50px;
         margin-left: 40px;
-        margin-bottom: 80px;
+        margin-bottom: 34px;
+      }
+      #officier {
+        background-color: #fdcb9e;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+      #worker {
+        margin-top: 5 px;
+        height: 27px;
+        width: 30px;
       }
     </style>
     <title>Etat Civil</title>
@@ -193,26 +208,68 @@
             alt="logo"
           />
         </a>
+        <a
+          href="C:\Users\HP\Documents\GitHub\SI2_Projet\Front-End\Client1\EtatCivil.html"
+        >
+          Etat Civil
+        </a>
         <a href=""> Statistique </a>
       </div>
       <div class="navbar2">
-        <p>Officier : ID {{officier.IDF_Officier}} , {{officier.Nom}} , {{officier.Prenom}}</p>
-        <button class="myButton" onclick="window.location.href='/homepage'">Deconnexion</button>
+        <button id="officier">Officier :{{officier.IDF_Officier}}</button>
+        <button id="officier">Nom : {{officier.Nom}}</button>
+        <button id="officier">Prenom : {{officier.Prenom}}</button>
+        <button class="myButton" onclick="window.location.href='/homepage'">
+          Deconnexion
+        </button>
       </div>
     </nav>
   </header>
-  <h2 id="Bienvenue">Les Actes D'etats Civil</h2>
+  <h2 id="Bienvenue">
+    <img
+      id="worker"
+      src="https://www.pngfind.com/pngs/m/61-611935_paper-sheet-svg-png-icon-free-download-paper.png"
+      alt="logo"
+    />
+    Les Actes D'etats Civil
+    <img
+      id="worker"
+      src="https://www.pngfind.com/pngs/m/61-611935_paper-sheet-svg-png-icon-free-download-paper.png"
+      alt="logo"
+    />
+  </h2>
   <body>
     <div class="EtatCivil">
-      <button class="myButton" id="ButtonBirth" type="submit" onclick="window.location.href='/actenaiss'">
+      <button
+        class="myButton"
+        id="ButtonBirth"
+        type="submit"
+        onclick="window.location.href='/actenaiss'"
+      >
         Acte de naissance
       </button>
-      <button class="myButton" id="ButtonMarriage" type="submit" onclick="window.location.href='/actemariage'">
+      <button
+        class="myButton"
+        id="ButtonMarriage"
+        type="submit"
+        onclick="window.location.href='/actemariage'"
+      >
         Acte de marriage
       </button>
-      <button class="myButton" id="ButtonDeath" type="submit" onclick="window.location.href='/actedeces'">
+      <button
+        class="myButton"
+        id="ButtonDeath"
+        type="submit"
+        onclick="window.location.href='/actedeces'"
+      >
         Acte de décès
       </button>
+      <div class="entry2" id="ImgInscription">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Emblem_of_Algeria_%281971-1976%29.svg/2048px-Emblem_of_Algeria_%281971-1976%29.svg.png"
+          alt="main"
+        />
+      </div>
     </div>
   </body>
   <hr />
