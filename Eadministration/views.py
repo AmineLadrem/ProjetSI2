@@ -8,9 +8,133 @@ import random
 import datetime
 from django.db.models import Count
 from django.utils import timezone
+from django.http import FileResponse
+import io 
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+import datetime
+from datetime import datetime, date
 
+from reportlab.lib.pagesizes import letter
 # Create your views here.
 
+def actenaisspdf(request):
+  actenaiss= ActeNaissance()
+  actenaiss= ActeNaissance.objects.get(pk=41638)
+  buf=io.BytesIO()
+  c=canvas.Canvas(buf,pagesize=letter, bottomup=0)
+  textob=c.beginText()
+  textob.setTextOrigin(inch,inch)
+  textob.setFont("Helvetica",14)
+  lines = [ ]
+  lines.append("Commune : "+str(actenaiss.Commune))
+  lines.append("Daira : "+str(actenaiss.Daira))
+  lines.append("Wilaya : "+str(actenaiss.Wilaya))
+  lines.append("                            Acte de naissance")
+  lines.append("                            ")
+  lines.append("                            ")
+  lines.append("Numéro de l'acte : "+str(actenaiss.NumNaiss))
+  lines.append("Numero de l'enregistrement : "+str(actenaiss.NumEnr))
+  lines.append("Nom : "+str(actenaiss.Nom))
+  lines.append("Prénom : "+str(actenaiss.Prenom))
+  lines.append("Sexe : "+str(actenaiss.Sexe))
+  lines.append("Date de naissance : "+str(actenaiss.DateNaiss))
+  lines.append("Heure de naissance : "+str(actenaiss.HeureNaiss))
+  lines.append("Lieu de naissance : "+str(actenaiss.LieuNaiss))
+  lines.append("Les Parents sont :")
+  lines.append(str(actenaiss.NomPrenomPere)+',Habite au'+str(actenaiss.Adresse)+',Profession :'+str(actenaiss.ProfessionPere)+',Né le :'+str(actenaiss.DateNaissPere)+',à :'+str(actenaiss.LieuNaissPere))
+  lines.append(str(actenaiss.NomPrenomMere)+',Habite au :'+str(actenaiss.Adresse)+',Profession :'+str(actenaiss.ProfessionMere)+',Né le :'+str(actenaiss.DateNaissMere)+',à :'+str(actenaiss.LieuNaissMere))
+  lines.append("Mention Marginale : "+str(actenaiss.MentionMarginale))
+    
+  
+    
+
+  for line in lines:
+     textob.textLine(line)
+  c.drawText(textob)
+  c.showPage()
+  c.save()
+  buf.seek(0)
+  return FileResponse(buf,as_attachment=True,filename='ActeDeNaissance.pdf')
+ 
+def actemarpdf(request):
+  actemar= ActeMariage()
+  actemar= ActeMariage.objects.get(pk=21)
+  buf=io.BytesIO()
+  c=canvas.Canvas(buf,pagesize=letter, bottomup=0)
+  textob=c.beginText()
+  textob.setTextOrigin(inch,inch)
+  textob.setFont("Helvetica",14)
+  lines = [ ]
+  lines.append("                            Acte de Mariage")
+  lines.append("                            ")
+  lines.append("                            ")
+  lines.append("Numéro de l'acte : "+str(actemar.NumMariage))
+  lines.append("Date de mariage : "+str(actemar.DateMar))
+  lines.append("Lieu de mariage : "+str(actemar.LieuMar))
+  lines.append("Numero de l'epoux : "+str(actemar.NumEpx))
+  lines.append("Numero de l'epouse : "+str(actemar.NumEps))
+  lines.append("Nom de l'epoux : "+str(actemar.NomEpx))
+  lines.append("Prénom de l'epoux : "+str(actemar.PrenomEpx))
+  lines.append("Nom de l'epouse : "+str(actemar.NomEps))
+  lines.append("Prénom de l'epouse : "+str(actemar.PrenomEps))
+  lines.append("Adresse de l'epoux : "+str(actemar.AdrEpx))
+  lines.append("Adresse de l'epouse : "+str(actemar.AdrEps))
+  lines.append("Profession de l'epoux : "+str(actemar.ProfessionEpx))
+  lines.append("Profession de l'epouse : "+str(actemar.ProfessionEps))
+  lines.append("Existance de contrat : "+str(actemar.ExistanceContrat))
+  
+    
+  
+    
+
+  for line in lines:
+     textob.textLine(line)
+  c.drawText(textob)
+  c.showPage()
+  c.save()
+  buf.seek(0)
+  return FileResponse(buf,as_attachment=True,filename='ActeDeMariage.pdf')
+ 
+    
+  
+    
+
+def actedecespdf(request):
+  actedeces= ActeDeces()
+  actedeces= ActeDeces.objects.get(pk=30)
+  buf=io.BytesIO()
+  c=canvas.Canvas(buf,pagesize=letter, bottomup=0)
+  textob=c.beginText()
+  textob.setTextOrigin(inch,inch)
+  textob.setFont("Helvetica",14)
+  lines = [ ]
+  lines.append("                            Acte de Deces")
+  lines.append("                            ")
+  lines.append("                            ")
+  lines.append("Numéro de l'acte : "+str(actedeces.NumDeces))
+  lines.append("Nom : "+str(actedeces.EtatCivil.Nom))
+  lines.append("Prneom : "+str(actedeces.EtatCivil.Prenom))
+  lines.append("Sexe : "+str(actedeces.EtatCivil.Sexe))
+  lines.append("Date de deces : "+str(actedeces.DateDeces))
+  lines.append("Heure de deces : "+str(actedeces.HeureDeces))
+  lines.append("Lieu de deces : "+str(actedeces.LieuDeces))
+  lines.append("Date de Naissance : "+str(actedeces.EtatCivil.DateNaiss))
+  lines.append("Lieu de Naissance : "+str(actedeces.EtatCivil.LieuNaiss))
+  lines.append("Etat Civil : "+str(actedeces.EtatCivil.EtatCivil))
+
+    
+  
+    
+
+  for line in lines:
+     textob.textLine(line)
+  c.drawText(textob)
+  c.showPage()
+  c.save()
+  buf.seek(0)
+  return FileResponse(buf,as_attachment=True,filename='ActeDeDeces.pdf')
+ 
 
 def connexion(request):
     global mat
@@ -26,6 +150,26 @@ def connexion(request):
         error = -1
     print(error)
     return render(request, "Connexion.html", {"error": error})
+
+def connexionmaire(request):
+    global mat
+    global maire
+    mat = request.POST.get('uname')
+    motpass = request.POST.get('psw')
+    error = 0
+    if Maire.objects.filter(IDF_Maire=mat, motpass=motpass).exists():
+        error = 1
+        maire = Maire.objects.get(IDF_Maire=mat)
+        return render(request, "Maire.html", {"maire": maire})
+    else:
+        error = -1
+    print(error)
+    return render(request, "ConnexionMaire.html", {"error": error})
+
+def gererofficier(request):
+
+    officiers = list(Officier.objects.filter(IDF_Bureau=maire.IDF_Bureau))
+    return render(request, "GererOfficier.html", {"officiers": officiers , "maire": maire})
 
 
 def deconnexion(request):
@@ -54,6 +198,7 @@ def etatcivil(request):
 
 
 def actenaiss(request):
+
     return render(request, "ActeDeNaiss.html", {"officier": officier})
 
 
@@ -70,9 +215,9 @@ def etatcivil(request):
 
 def ajoutdeces(request):
     changee=False
+    msg=''
     form = DecesForm(request.POST)
     actedeces= ActeDeces()
-    personne= Personne()
     reg= Registre()
     if request.method == 'POST':
      NumPersonne= request.POST.get('NumPersonne')
@@ -87,13 +232,15 @@ def ajoutdeces(request):
         personne = Personne.objects.get(pk=NumPersonne)
         Personne.objects.filter(pk=NumPersonne).update(EtatCivil='Deces')
         changee=True
-     if Registre.objects.filter(TypeReg='Deces',AnneeReg=AnneeDeces).exists() :
-        reg= Registre.objects.get(TypeReg='Deces',AnneeReg=AnneeDeces)
-     reg= Registre.objects.get(TypeReg='Deces',AnneeReg=AnneeDeces)
-     
-     actedeces=ActeDeces(DateDeces=DateDeces,HeureDeces=HeureDeces,LieuDeces=LieuDeces,EtatCivil=personne,NumReg=reg)
-    actedeces.save()
-    msg="L'acte de deces a été ajouté avec succès ✔️"
+        if Registre.objects.filter(TypeReg='Deces',AnneeReg=AnneeDeces).exists() :
+          reg= Registre.objects.get(TypeReg='Deces',AnneeReg=AnneeDeces)
+          reg= Registre.objects.get(TypeReg='Deces',AnneeReg=AnneeDeces)
+          if ActeDeces.objects.filter(EtatCivil=personne).exists():
+            msg="Cette personne a déjà un acte de deces"
+          else:
+           actedeces=ActeDeces(DateDeces=DateDeces,HeureDeces=HeureDeces,LieuDeces=LieuDeces,EtatCivil=personne,NumReg=reg)
+           actedeces.save()
+           msg="L'acte de deces a été ajouté avec succès ✔️"
 
 
     return render(request, "AjouteDeces.html", {"form": form, "officier": officier , "msg":msg,"changee":changee})
@@ -165,6 +312,7 @@ def ajoutnaiss(request):
      Prenom = request.POST.get('Prenom')
      Sexe = request.POST.get('Sexe')
      DateNaiss = request.POST.get('DateNaiss')
+     AnneeNaiss=request.POST.get('AnneeNaiss')
      AnneeNaiss = int(DateNaiss[:4])
      HeureNaiss = request.POST.get('HeureNaiss')
      LieuNaiss = request.POST.get('LieuNaiss')
@@ -202,7 +350,7 @@ def ajoutnaiss(request):
       reg= Registre.objects.get(TypeReg='Naissance',AnneeReg=AnneeNaiss)
      reg= Registre.objects.get(TypeReg='Naissance',AnneeReg=AnneeNaiss)
     
-     personne = Personne(N_Personnel=N_Personnel, Nom=Nom, Prenom=Prenom, Sexe=Sexe, DateNaiss=DateNaiss, LieuNaiss=LieuNaiss, HeureNaiss=HeureNaiss, EtatCivil=EtatCivil, Adresse=Adresse, Profession=Profession, NumPere=pere.NumEnr, NumMere=mere.NumEnr,NumReg=reg)
+     personne = Personne(N_Personnel=N_Personnel, Nom=Nom, Prenom=Prenom, Sexe=Sexe, DateNaiss=DateNaiss,AnneeNaiss=AnneeNaiss, LieuNaiss=LieuNaiss, HeureNaiss=HeureNaiss, EtatCivil=EtatCivil, Adresse=Adresse, Profession=Profession, NumPere=pere.NumEnr, NumMere=mere.NumEnr,NumReg=reg)
      personne.save()
      personne= Personne.objects.get(N_Personnel=N_Personnel)
      actenaiss=ActeNaissance(NumNaiss=personne.NumEnr,Nom=Nom,Prenom=Prenom,Sexe=Sexe,DateNaiss=DateNaiss,HeureNaiss=HeureNaiss,LieuNaiss=LieuNaiss,Commune=Commune,Daira=Daira,Wilaya=Wilaya,NomPrenomPere=Nompere+" "+Prenompere,NomPrenomMere=Nommere+" "+Prenommere,ProfessionPere=Professionpere,ProfessionMere=Professionmere,LieuNaissPere=LieuNaisspere,LieuNaissMere=LieuNaissmere,DateNaissPere=DateNaisspere,DateNaissMere=DateNaissmere,Adresse=Adressepere,MentionMarginale=" ",NumEnr=personne,NumReg=reg)
@@ -218,16 +366,19 @@ def ajoutnaiss(request):
 
 def afficheractenaiss(request):
     Existe=False
+    msg1=''
+    msg2=''
     actenaiss= ActeNaissance()
     if request.method == 'POST':
         NumNaiss = request.POST.get('NumNaiss')
         if ActeNaissance.objects.filter(pk=NumNaiss).exists():
             Existe=True
-            print("Existe")
             actenaiss= ActeNaissance.objects.get(pk=NumNaiss)
-            print(actenaiss.HeureNaiss)
-            
-    return render(request, "AffichageActeNaiss.html", {"officier": officier , "actenaiss": actenaiss})    
+            msg1= "L'acte de naissance Existe✔️"
+        else:
+            msg2= "L'acte de naissance n'existe pas ❌"    
+                      
+    return render(request, "AffichageActeNaiss.html", {"officier": officier , "actenaiss": actenaiss , "Existe": Existe , "msg1": msg1, "msg2": msg2})    
 
 def afficheractemar(request):
  Error=False
@@ -252,22 +403,102 @@ def afficheractemar(request):
  return render(request, "AffichageActeMar.html", {"officier": officier , "actemar": actemar , "epoux": epoux , "epouse": epouse , "msg": msg , "Error": Error})    
 
 def afficheractedec(request):
+
     Existe=False
+    msg1=''
+    msg2=''
     actdec= ActeDeces()
     if request.method == 'POST':
         NumDec = request.POST.get('NumDec')
-        if ActeDeces.objects.filter(pk=NumDec).exists():
+        print(NumDec)
+        if Personne.objects.filter(pk=NumDec,EtatCivil='Deces').exists():
+            personne= Personne.objects.get(pk=NumDec,EtatCivil='Deces')
             Existe=True
             print("Existe")
-            actdec= ActeDeces.objects.get(pk=NumDec)
+            actdec= ActeDeces.objects.get(EtatCivil=personne)
+            msg1= "L'acte de deces Existe✔️"
+        else:
+            msg2= "L'acte de deces n'existe pas ❌"     
+    return render(request, "AffichageActeDeces.html", {"officier": officier , "actdec": actdec, "Existe": Existe , "msg1": msg1, "msg2": msg2}) 
 
-            
-    return render(request, "AffichageActeDeces.html", {"officier": officier , "actdec": actdec}) 
+def searchactenaiss(request):
+  if request.method == 'POST':
+         NumActe = request.POST.get('actenaiss')
+         if ActeNaissance.objects.filter(pk=NumActe).exists():
+            url = 'modifiernaiss/' +NumActe
+            return redirect(url)
+
+  return render(request, "searchactenaiss.html", {"officier": officier})
+
+def searchactemar(request):
+   if request.method == 'POST':
+         NumActe = request.POST.get('actemar')
+         if ActeMariage.objects.filter(pk=NumActe).exists():
+            url = 'modifiermar/' +NumActe
+            return redirect(url)
+   return render(request, "searchactemar.html", {"officier": officier})
+
+def searchactedeces(request):
+    if request.method == 'POST':
+         NumActe = request.POST.get('actedeces')
+         if ActeDeces.objects.filter(pk=NumActe).exists():
+            url = 'modifierdeces/' +NumActe
+            return redirect(url)
+    return render(request, "searchactedeces.html", {"officier": officier})
+
+def modifieractenaiss(request , NumNaiss):
+    Actes=ActeNaissance.objects.get(NumNaiss=NumNaiss)
+    if request.method == 'POST':
+     form= NaissanceForm2(request.POST, instance=Actes)
+     if form.is_valid():
+            form.save()
+            return redirect('ActeNaiss')
+    else:
+     form = NaissanceForm2(instance=Actes)        
+    return render(request, "ModifierActeNaiss.html", {'form': form, 'officier':officier})
+
+def modifieractemar(request , NumMariage):
+    Actes=ActeMariage.objects.get(NumMariage=NumMariage)
+    if request.method == 'POST':
+     form= MariageForm(request.POST, instance=Actes)
+     if form.is_valid():
+            form.save()
+            return redirect('ActeMar')
+    else:
+     form = MariageForm(instance=Actes)        
+    return render(request, "ModifierActeMar.html", {'form': form , 'officier':officier})
+
+def modifieractedeces(request , NumDeces):
+    Actes=ActeDeces.objects.get(NumDeces=NumDeces)
+    if request.method == 'POST':
+     form= DecesForm(request.POST, instance=Actes)
+     if form.is_valid():
+            form.save()
+            return redirect('ActeDeces')
+    else:
+     form = DecesForm(instance=Actes)        
+    return render(request, "ModifierActeDeces.html", {'form': form, 'officier':officier})
+
+def ajoutofficier(request):
+    officier=Officier()
+    form = OfficierForm()
+    if request.method == 'POST':
+        form = OfficierForm(request.POST)
+        if form.is_valid():
+         print("valid")
+         form.save()
+    return render(request, 'AjouteOfficier.html', {'form': form, 'maire':maire})
 
 def index(request):
- labels = []
- data = []
+ naiss = Personne.objects.values("AnneeNaiss").annotate(nombre=Count("AnneeNaiss"))
+ NumMaj=0
+ NumMin=0
+ actenaiss=Personne.objects.all()
 
- 
-    
- return render(request, "index.html" , {"labels": labels, "data": data})
+ for acte in actenaiss:
+    if date.today().year-int(acte.AnneeNaiss)>18:
+        NumMaj=NumMaj+1;
+    else:
+        NumMin=NumMin+1;
+   
+ return render(request, "Stats.html" , {"naiss": naiss , "NumMaj": NumMaj , "NumMin": NumMin ,"officier": officier})

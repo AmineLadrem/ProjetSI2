@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins:wght@600&display=swap");
-      #officier {
-    background-color: #fdcb9e;
-    border: none;
-    color: #3f3f44;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-}
-      p{
-        font-family: "Poppins", sans-serif;
-      }
       body {
         background-color: #eeeeee;
         font-family: "Poppins", sans-serif;
@@ -44,7 +29,7 @@
         font-family: "Inter", sans-serif;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 50 px;
+        margin-bottom: 50px;
       }
 
       header a {
@@ -56,7 +41,7 @@
       }
       header nav {
         display: flex;
-        gap: 760px;
+        gap: 600px;
         margin-left: 51px;
       }
 
@@ -115,6 +100,18 @@
 
       .myButton {
         background-color: #cceabb;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+      .myButton1 {
+        background-color: #fdcb9e;
         border: none;
         color: #3f3f44;
         text-align: center;
@@ -192,7 +189,33 @@
         margin-left: 40px;
         margin-bottom: 80px;
       }
+      #clock {
+        font-size: 24px;
+        color: #3f3f44;
+        text-align: center;
+        font-weight: normal;
+        background-color: #cceabb;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
     </style>
+    <script>
+      setInterval(function () {
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        document.getElementById("clock").innerHTML =
+          hours + ":" + minutes + ":" + seconds;
+      }, 1000);
+    </script>
     <title>Etat Civil</title>
   </head>
   <header>
@@ -205,31 +228,45 @@
             alt="logo"
           />
         </a>
-        <a
-          href="C:\Users\HP\Documents\GitHub\SI2_Projet\Front-End\Client1\EtatCivil.html"
-        >
-          Etat Civil
-        </a>
-        <a href=""> Statistique </a>
+        <a onclick="window.location.href='/etatcivil'"> Etat Civil </a>
+        <a onclick="window.location.href='/index'"> Statistiques </a>
       </div>
       <div class="navbar2">
-        <button id="officier">Officier :{{officier.IDF_Officier}}</button>
-        <button id="officier">Nom : {{officier.Nom}}</button>
-        <button id="officier">Prenom : {{officier.Prenom}}</button>
-        <button class="myButton" onclick="window.location.href='/homepage'">Deconnexion</button>
+        <button id="clock"></button>
+        <button class="myButton1">Officier :{{officier.IDF_Officier}}</button>
+        <button class="myButton1">Nom :{{officier.Nom}}</button>
+        <button class="myButton1">Prenom :{{officier.Prenom}}</button>
+        <button class="myButton" onclick="window.location.href='/homepage'">
+          Deconnexion
+        </button>
       </div>
     </nav>
   </header>
   <h2 id="Bienvenue">Les Actes De Naissance</h2>
   <body>
     <div class="EtatCivil">
-      <button class="myButton" id="ButtonBirth" type="submit" onclick="window.location.href='/ajoutnaiss'">
+      <button
+        class="myButton"
+        id="ButtonBirth"
+        type="submit"
+        onclick="window.location.href='/ajoutnaiss'"
+      >
         Ajouter une Naissance
       </button>
-      <button class="myButton" id="ButtonMarriage" type="submit">
+      <button
+        class="myButton"
+        id="ButtonMarriage"
+        type="submit"
+        onclick="window.location.href='/searchactenaiss'"
+      >
         Modifier un acte
       </button>
-      <button class="myButton" id="ButtonDeath" type="submit"onclick="window.location.href='/afficheractenaiss'">
+      <button
+        class="myButton"
+        id="ButtonDeath"
+        type="submit"
+        onclick="window.location.href='/afficheractenaiss'"
+      >
         Rechercher un acte
       </button>
     </div>
@@ -273,8 +310,14 @@
     </div>
     <div class="links">
       <ul>
-        <li><a href=""> Etat Civil</a></li>
-        <li><a href=""> Sur Nous </a></li>
+        <a onclick="window.location.href='/etatcivil'"> Etat Civil </a>
+        <li>
+          <a
+            href="https://www.interieur.gov.dz/index.php/fr/le-ministere/le-ministère/communiques/2421-le-ministre-de-l’intérieur-des-collectivités-locales-et-de-l’aménagement-du-territoire-préside-les-travaux-d’ouverture.html"
+          >
+            Sur Nous
+          </a>
+        </li>
       </ul>
     </div>
     <div class="pc">

@@ -28,10 +28,10 @@ class Bureau(models.Model):
     
 
 class Officier(models.Model):
-    IDF_Officier=models.IntegerField(primary_key=True)
+    IDF_Officier=models.AutoField(primary_key=True)
     Nom=models.CharField(max_length=50)
     Prenom=models.CharField(max_length=50)
-    DatePrise=models.DateField()
+    DatePrise=models.DateField(null=True)
     motpass=models.CharField(max_length=16)
     IDF_Bureau=models.ForeignKey("Bureau",on_delete=models.CASCADE)
 
@@ -40,6 +40,7 @@ class Maire(models.Model):
     Nom=models.CharField(max_length=50)
     Prenom=models.CharField(max_length=50)
     DatePrise=models.DateField()
+    motpass=models.CharField(max_length=16)
     IDF_Bureau=models.ForeignKey("Bureau",on_delete=models.CASCADE)
 
 class Personne(models.Model):
@@ -49,6 +50,7 @@ class Personne(models.Model):
     Prenom=models.CharField(max_length=50,null=True)
     Sexe=models.CharField(max_length=1,null=True)
     DateNaiss=models.DateField( null=True)
+    AnneeNaiss=models.IntegerField(null=True)
     HeureNaiss=models.TimeField( null=True)
     LieuNaiss=models.CharField(max_length=50,null=True)
     EtatCivil=models.CharField(max_length=50,null=True)

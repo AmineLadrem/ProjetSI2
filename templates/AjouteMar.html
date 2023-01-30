@@ -5,23 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-     p{
-        font-family: "Poppins", sans-serif;
-      }
-     @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins:wght@600&display=swap");
-     #officier {
-    background-color: #fdcb9e;
-    border: none;
-    color: #3f3f44;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-}
-     body {
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Poppins:wght@600&display=swap");
+      body {
         background-color: #eeeeee;
         font-family: "Poppins", sans-serif;
         margin-left: 0px;
@@ -35,8 +20,9 @@
         font-family: "Inter", sans-serif;
         font-size: 30px;
         color: #aaaaaa;
-        margin-left: 600px;
-        margin-top: 81px;
+        margin-left: 560px;
+        margin-top: 17px;
+          margin-bottom: 21px;
       }
 
       header {
@@ -56,7 +42,7 @@
       }
       header nav {
         display: flex;
-        gap: 760px;
+          gap:531px;
         margin-left: 51px;
       }
 
@@ -99,6 +85,7 @@
       footer {
         display: flex;
         margin-top: 10px;
+          margin-left: -148px ;
         gap: 178px;
       }
       footer a {
@@ -137,9 +124,9 @@
 
       #ButtonCnx {
         border: none;
-        width: 325px;
+        width: 452px;
         height: 50px;
-        margin-left: 487px;
+        margin-left: -14px;
         margin-top: 35px;
         margin-bottom: 66px;
       }
@@ -177,11 +164,22 @@
       }
 
       .EtatCivil {
-        margin-top: 122px;
-        margin-bottom: 143px;
-        margin-left: 156px;
+        margin-top: 0px;
+        margin-bottom: 2px;
+        margin-left: 150px;
       }
-
+   .myButton1 {
+        background-color: #FDCB9E;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
       #ButtonBirth,
       #ButtonMarriage,
       #ButtonDeath {
@@ -190,7 +188,48 @@
         margin-left: 40px;
         margin-bottom: 80px;
       }
+      .AjoutD {
+          margin-left: 351px;
+      }
+      .myButton1 {
+        background-color: #fdcb9e;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+      #clock {
+        font-size: 24px;
+        color: #3f3f44;
+        text-align: center;
+        font-weight: normal;
+        background-color: #cceabb;
+        border: none;
+        color: #3f3f44;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+      }
     </style>
+    <script>
+      setInterval(function () {
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        document.getElementById("clock").innerHTML =
+          hours + ":" + minutes + ":" + seconds;
+      }, 1000);
+    </script>
     <title>Ajout Mariage</title>
   </head>
   <header>
@@ -203,46 +242,54 @@
             alt="logo"
           />
         </a>
-        <a
-          href="C:\Users\HP\Documents\GitHub\SI2_Projet\Front-End\Client1\EtatCivil.html"
-        >
-          Etat Civil
-        </a>
-        <a href=""> Statistique </a>
+      <a
+        onclick="window.location.href='/etatcivil'"
+       >
+         Etat Civil
+       </a>
+       <a onclick="window.location.href='/index'"> Statistiques </a>
       </div>
       <div class="navbar2">
-        <button id="officier">Officier :{{officier.IDF_Officier}}</button>
-        <button id="officier">Nom : {{officier.Nom}}</button>
-        <button id="officier">Prenom : {{officier.Prenom}}</button>
-        <button class="myButton" onclick="window.location.href='/homepage'">Deconnexion</button>
+        <button id="clock"></button>
+        <button class="myButton1">Officier :{{officier.IDF_Officier}}</button>
+        <button class="myButton1">Nom :{{officier.Nom}}</button>
+        <button class="myButton1">Prenom :{{officier.Prenom}}</button>
+        <button class="myButton" onclick="window.location.href='/homepage'">
+          Deconnexion
+        </button>
       </div>
+  </nav>
     </nav>
   </header>
-  <h2 id="Bienvenue">Ajouter un mariage</h2>
+  <h2 id="Bienvenue">Ajouter un marriage</h2>
   <body>
     <div class="EtatCivil">
     <form method="POST">
-      
+      <div class="AjoutD">
+
         {% csrf_token %}
         <label for="uname">
-            <b>Date de Mariage</b>
+            <b style="margin-right: 71px;">Date de Mariage</b>
           </label>
         {{form.DateMar}}
+          <br />
         <label for="uname">
-            <b>Lieu de Mariage</b>
+            <b style="margin-right: 78px;">Lieu de Mariage</b>
           </label>
         {{form.LieuMar}}
+              <br />
         <label for="uname">
-            <b>Numero de l'epoux</b>
+            <b style="margin-right: 55px;">Numero de l'epoux</b>
           </label>
         {{form.NumEpx}}
+              <br />
         <label for="uname">
-            <b>Numero de l'epouse</b>
+            <b style="margin-right: 45px;">Numero de l'epouse</b>
           </label>
         {{form.NumEps}}
         <br />
         <label for="uname">
-            <b>Existance de contrat</b>
+            <b style="margin-right: 42px;">Existance de contrat</b>
           </label>
         {{form.ExistanceContrat}}
         <br />
@@ -252,7 +299,7 @@
     </form>
     </div>
   </body>
-  <hr />
+  <hr style="margin-left: -149px;" />
   <footer>
     <div class="copyright">
       <ul>
@@ -291,8 +338,8 @@
     </div>
     <div class="links">
       <ul>
-        <li><a href=""> Etat Civil</a></li>
-        <li><a href=""> Sur Nous </a></li>
+        <a onclick="window.location.href='/etatcivil'"> Etat Civil </a>
+        <li><a href="https://www.interieur.gov.dz/index.php/fr/le-ministere/le-ministère/communiques/2421-le-ministre-de-l’intérieur-des-collectivités-locales-et-de-l’aménagement-du-territoire-préside-les-travaux-d’ouverture.html"> Sur Nous </a></li>
       </ul>
     </div>
     <div class="pc">

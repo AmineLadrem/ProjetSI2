@@ -16,6 +16,11 @@ class NaissanceForm(forms.ModelForm):
    model = Personne
    fields='__all__'
 
+class NaissanceForm2(forms.ModelForm):
+ class Meta:
+   model = ActeNaissance
+   fields='__all__'
+
 class MariageForm(forms.ModelForm):
  class Meta:
    model = ActeMariage
